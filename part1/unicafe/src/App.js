@@ -4,7 +4,7 @@ const Heading = ({text}) => <h1>{text}</h1>
 
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
-const Statistic = ({name, value}) => <p>{name} {value}</p>
+const StatisticLine = ({name, value}) => <p>{name} {value}</p>
 
 const Statistics = ({feedbackGiven, good, neutral, bad}) => {
   if(!feedbackGiven){
@@ -12,12 +12,12 @@ const Statistics = ({feedbackGiven, good, neutral, bad}) => {
   }
   return (
     <>
-      <Statistic name="good" value={good}/>
-      <Statistic name="neutral" value={neutral}/>
-      <Statistic name="bad" value={bad}/>
-      <Statistic name="total" value={good + bad + neutral}/>
-      <Statistic name="average" value={(good - bad)/(good + bad + neutral)}/>
-      <Statistic name="positive" value={"%" + (good*100)/(good + bad + neutral)}/>
+      <StatisticLine name="good" value={good}/>
+      <StatisticLine name="neutral" value={neutral}/>
+      <StatisticLine name="bad" value={bad}/>
+      <StatisticLine name="total" value={good + bad + neutral}/>
+      <StatisticLine name="average" value={(good - bad)/(good + bad + neutral)}/>
+      <StatisticLine name="positive" value={"%" + (good*100)/(good + bad + neutral)}/>
     </>
   )
 }
