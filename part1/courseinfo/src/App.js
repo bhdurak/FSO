@@ -15,7 +15,7 @@ const Content = (props) => {
   return (
     props.data.map((prop) => {
       return (
-        <Part name={prop.part} count={prop.exercise} />
+        <Part name={prop.name} count={prop.exercises} />
       )
     })
   )
@@ -29,22 +29,28 @@ const Total = (props) => {
 
 const App = () => {
   const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10
+  }
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7
+  }
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14
+  }
 
   return (
     <div>
       <Header course={course} />
       <Content data = {[
-        {part: part1, exercise: exercises1},
-        {part: part2, exercise: exercises2},
-        {part: part3, exercise: exercises3}
+        {name: part1.name, exercises: part1.exercises},
+        {name: part2.name, exercises: part2.exercises},
+        {name: part3.name, exercises: part3.exercises}
         ]} />
-      <Total total={exercises1 + exercises2 + exercises3}/>
+      <Total total={part1.exercises + part2.exercises + part3.exercises}/>
     </div>
   )
 }
