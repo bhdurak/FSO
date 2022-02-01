@@ -4,21 +4,28 @@ const Heading = ({text}) => <h1>{text}</h1>
 
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
-const StatisticLine = ({name, value}) => <p>{name} {value}</p>
+const StatisticLine = ({name, value}) => {
+  return(
+  <tr>
+    <td>{name}</td> 
+    <td>{value}</td>
+  </tr>
+  )
+}
 
 const Statistics = ({feedbackGiven, good, neutral, bad}) => {
   if(!feedbackGiven){
     return <p>No feedback given</p>
   }
   return (
-    <>
+    <table><tbody>
       <StatisticLine name="good" value={good}/>
       <StatisticLine name="neutral" value={neutral}/>
       <StatisticLine name="bad" value={bad}/>
       <StatisticLine name="total" value={good + bad + neutral}/>
       <StatisticLine name="average" value={(good - bad)/(good + bad + neutral)}/>
       <StatisticLine name="positive" value={"%" + (good*100)/(good + bad + neutral)}/>
-    </>
+    </tbody></table>
   )
 }
 const App = () => {
