@@ -6,13 +6,16 @@ const Header = (props) => {
   )
 }
 
+const Part = (props) => {
+  return (
+    <p>{props.name} {props.count}</p>
+  )
+}
 const Content = (props) => {
   return (
     props.data.map((prop) => {
       return (
-        <p>
-          {prop.part} {prop.exercise}
-        </p>
+        <Part name={prop.part} count={prop.exercise} />
       )
     })
   )
