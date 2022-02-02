@@ -14,12 +14,20 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [points, updatePoints] = useState({})
+
+  const vote = () => {
+    updatePoints({...points, [selected]:(isNaN(points[selected]) ? 1 : points[selected]+1)})
+  }
 
   return (
     <div>
       {anecdotes[selected]}
       <br/>
+      has {isNaN(points[selected]) ? 0 : points[selected]} votes
+      <br/>
       <Button onClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))} text="next anecdote"></Button>
+      <Button onClick={vote} text="voted"></Button>
     </div>
   )
 }
