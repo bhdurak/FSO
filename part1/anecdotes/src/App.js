@@ -2,6 +2,19 @@ import React, { useState } from 'react'
 
 const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
 
+const Title = ({text}) => <h1>{text}</h1>
+
+const VoteCount = ({count}) => <p>has {isNaN(count) ? 0 : count} votes</p>
+
+const Anecdote = ({text, count}) => {
+  return(
+    <>
+      <p>{text}</p>
+      <VoteCount count={count} />
+    </>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often',
@@ -20,12 +33,26 @@ const App = () => {
     updatePoints({...points, [selected]:(isNaN(points[selected]) ? 1 : points[selected]+1)})
   }
 
+  const getAnecdoteWithMostVotes = () => {
+    let mostVotedIndex = 0
+    let currentMax = 0
+    Object.keys(points).forEach(k => {
+      if(points[k] > currentMax){
+        currentMax = points[k]
+        mostVotedIndex = k
+      }
+    })
+    return mostVotedIndex;
+  }
+
+  const most = getAnecdoteWithMostVotes()
+
   return (
     <div>
-      {anecdotes[selected]}
-      <br/>
-      has {isNaN(points[selected]) ? 0 : points[selected]} votes
-      <br/>
+      <Title text="Anecdote of the day" />
+      <Anecdote text={anecdotes[selected]} count={points[selected]}/>
+      <Title text="Anecdote with most votes" />
+      <Anecdote text={anecdotes[most]} count={points[most]} />
       <Button onClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))} text="next anecdote"></Button>
       <Button onClick={vote} text="voted"></Button>
     </div>
