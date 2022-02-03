@@ -3,7 +3,7 @@ import React from "react";
 const Persons = ({persons}) => {
     return (
         <>
-            {persons.map(person => <p key={person.name}>{person.name}</p>)}
+            {persons.map(person => <p key={person.name}>{person.name} {person.number}</p>)}
         </>
     )
 }
