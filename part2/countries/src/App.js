@@ -11,25 +11,36 @@ const SingleCountryField = ({country}) => {
       <p>population {country.population}</p>
       <h2>languages</h2>
       <ul>{Object.values(country.languages).map(language => <li key={language}>{language}</li>)}</ul>
-      <img src={Object.values(country.flags)[0]} />
+      <img src={Object.values(country.flags)[0]} alt="flag"/>
     </>
   )
 }
 
 const CountryList = ({countries}) => {
+  const [toShow, setToShow] = useState(Array(countries.length).fill(false))
   if(countries.length > 10){
     return (
       <p>Too many matches. Specify another filter.</p>
     )
   }
   if(countries.length > 1 ) {
+    console.log(toShow);
+    let tempShow = [...toShow]
     return(
       <>
-        {countries.map(country => <p key={country.flag}>{country.name.common}</p>)}
+        {countries.map((country,i) => 
+          { return(
+            <>
+            <p key={country.flag}>{country.name.common}<button onClick={() => {tempShow[i] = !tempShow[i];setToShow(tempShow)}}>show</button></p>
+            <div>{(tempShow[i]) ? <SingleCountryField country={countries[i]} />: ""}</div>
+            </>
+          )
+          }
+        )}
       </>
     )
   }
-  if(countries.length == 0) {
+  if(countries.length === 0) {
     return <p>No countries found</p>
   }
   return (
