@@ -3,6 +3,23 @@ import axios from 'axios'
 
 const SearchField = ({value, onChange}) => <input value={value} onChange={onChange}></input> 
 
+const WeatherField = ({cityName}) => {
+  const [weatherData,setWeatherData] = useState({})
+  useEffect(() => 
+  axios
+  .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=913a933d1838e17e1e2c7636e6a47b7b`)
+  .then(response => setWeatherData(response.data))
+  
+  ,[])
+  return (
+    <>
+      <h2>Weather in {cityName}</h2>
+      <p>Temperature: {Object.keys(weatherData).length > 0 ? Math.floor(weatherData.main.temp-273)+" Celcius" : "N/A"}</p>
+      <p>Wind: {Object.keys(weatherData).length > 0 ? Math.floor(weatherData.wind.speed)+" m/s" : "N/A"}</p>
+    </>
+  )
+}
+
 const SingleCountryField = ({country}) => {
   return (
     <>
@@ -12,6 +29,8 @@ const SingleCountryField = ({country}) => {
       <h2>languages</h2>
       <ul>{Object.values(country.languages).map(language => <li key={language}>{language}</li>)}</ul>
       <img src={Object.values(country.flags)[0]} alt="flag"/>
+      <WeatherField cityName={country.capital} />
+      <hr/>
     </>
   )
 }
@@ -32,7 +51,7 @@ const CountryList = ({countries}) => {
           { return(
             <>
             <p key={country.flag}>{country.name.common}<button onClick={() => {tempShow[i] = !tempShow[i];setToShow(tempShow)}}>show</button></p>
-            <div>{(tempShow[i]) ? <SingleCountryField country={countries[i]} />: ""}</div>
+            <div>{(tempShow[i]) ? <SingleCountryField key={country.flag} country={countries[i]}  />: ""}</div>
             </>
           )
           }
