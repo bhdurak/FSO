@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [message, setMessage] = useState(null)
+  const [isSuccess, setIsSuccess] = useState(false)
   var filteredPersons = persons.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()))
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const App = () => {
 
         setPersons(persons.concat(response));
         setMessage(`Added ${response.name}`);
+        setIsSuccess(true);
         setNewName('');
         setNewNumber('');
       })
@@ -44,10 +46,15 @@ const App = () => {
         .then(response => {
             setPersons(persons.map(p => p.name !== newName ? p : response))
             setMessage(`Changed ${response.name}'s Phone Number to ${response.number}`);
+            setIsSuccess(true);
             setNewName('')
             setNewNumber('')
           })
-      }
+          .catch(response => {
+            setMessage(`Information of ${newName} has already been removed from server`)
+            setIsSuccess(false);
+          })
+        }
     }
   }
 
@@ -69,7 +76,7 @@ const App = () => {
   return (
     <div>
       <Title text="Phonebook"></Title>
-      <SuccessMessage message={message} setMessage={setMessage}/>
+      <SuccessMessage message={message} setMessage={setMessage} isSuccess={isSuccess}/>
       filter shown with <InputField value={filter} onChange={applyFilter} />
       <Title text="add a new"></Title>
       <InputForm name="name" value={newName} numberValue={newNumber} onSubmit={addNewName} onChange={(event) => setNewName(event.target.value)} onNumberChange={(event) => setNewNumber(event.target.value)}/>
