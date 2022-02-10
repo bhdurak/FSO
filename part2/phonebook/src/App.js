@@ -4,6 +4,7 @@ import InputField from './components/inputfield'
 import InputForm from './components/inputform'
 import Persons from './components/persons'
 import Title from './components/title'
+import PersonService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -13,10 +14,9 @@ const App = () => {
   var filteredPersons = persons.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()))
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    PersonService.getAll()
       .then(response => {
-        setPersons(response.data)
+        setPersons(response)
       })
   }, [])
 
@@ -28,11 +28,10 @@ const App = () => {
     }
     if(!persons.find(p => p.name === newName)){
 
-      axios
-      .post('http://localhost:3001/persons', newPerson)
+      PersonService.addNew(newPerson)
       .then(response => {
 
-        setPersons(persons.concat(response.data))
+        setPersons(persons.concat(response))
         setNewName('')
         setNewNumber('')
       })
