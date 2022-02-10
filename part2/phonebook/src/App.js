@@ -4,7 +4,7 @@ import InputField from './components/inputfield'
 import InputForm from './components/inputform'
 import Persons from './components/persons'
 import Title from './components/title'
-import PersonService from './services/persons'
+import PersonService from './services/personservice'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -41,6 +41,13 @@ const App = () => {
     }
   }
 
+  const deletePerson = (id) => {
+    if(window.confirm(`Delete ${persons.find(p => p.id === id)["name"]}?`)){
+      PersonService.deleteOne(id)
+      .then(setPersons(persons.filter(p => p.id !== id)))
+    }
+  } 
+
   const applyFilter = (event) => {
     setFilter(event.target.value)
     if(filter === ""){
@@ -56,7 +63,7 @@ const App = () => {
       <Title text="add a new"></Title>
       <InputForm name="name" value={newName} numberValue={newNumber} onSubmit={addNewName} onChange={(event) => setNewName(event.target.value)} onNumberChange={(event) => setNewNumber(event.target.value)}/>
       <Title text="Numbers"></Title>
-      <Persons persons={filteredPersons}/>
+      <Persons persons={filteredPersons} onDelete={deletePerson}/>
     </div>
   )
 }
