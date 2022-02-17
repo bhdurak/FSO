@@ -7,7 +7,7 @@ const WeatherField = ({cityName}) => {
   const [weatherData,setWeatherData] = useState({})
   useEffect(() => 
   axios
-  .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=913a933d1838e17e1e2c7636e6a47b7b`)
+  .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${process.env.REACT_APP_API_KEY}`)
   .then(response => setWeatherData(response.data))
   
   ,[])
