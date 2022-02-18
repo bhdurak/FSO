@@ -1,0 +1,19 @@
+{
+  "name": "nodetraining",
+  "version": "1.0.0",
+  "description": "Training app nodejs with FSO",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Burak Durak",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
