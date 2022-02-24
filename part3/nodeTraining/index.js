@@ -1,8 +1,10 @@
 const express = require('express')
+const cors = require('cors')
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 let notes = [
     {
@@ -28,8 +30,8 @@ let notes = [
   const generateId = () => notes.length > 0 ? Math.max(...notes.map(n => n.id)) + 1 : 1
 
   app.get('/', (request, response) => response.send(`<h1>Hello World</h1>`))
-  app.get('/notes', (request, response) => response.json(JSON.stringify(notes)))
-  app.get('/notes/:id', (request, response) => {
+  app.get('/api/notes', (request, response) => response.json(JSON.stringify(notes)))
+  app.get('/api/notes/:id', (request, response) => {
     const id = Number(request.params.id)
     const note = notes.find(n => n.id === id)
     if(note) {
