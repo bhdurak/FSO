@@ -1,1 +1,1 @@
-web: cd part3 && npm run
+web: cd part3/nodeTraining && npm run
