@@ -41,7 +41,7 @@ let notes = [
       response.status(404).end()
     }
   })
-  app.delete('/notes/:id', (request, response) => {
+  app.delete('/api/notes/:id', (request, response) => {
     const id = Number(request.params.id)
     notes = notes.filter(n => n.id !== id)
     response.status(204).end()
@@ -52,7 +52,7 @@ let notes = [
 
       console.log(`Server running on port ${PORT}`)
   })
-  app.post('/notes', (request, response) => {
+  app.post('/api/notes', (request, response) => {
     const body = request.body
 
     if (!body.content){
